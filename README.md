@@ -29,6 +29,17 @@ The system follows a reactive, message-driven architecture to ensure scalability
 - 🎁 **Real-time Incentive Integration**: Dynamic reward calculation via external microservice.
 - 📊 **Balance Enquiry**: Integrated REST endpoints for real-time balance checks.
 
+## ⚙️ How It Works
+
+1. Transactions are published to a Kafka topic
+2. Spring Boot consumer listens and deserializes messages
+3. Transactions are validated and processed
+4. User balances are updated in database
+5. External Incentive API is called
+6. Final state is persisted and exposed via REST API
+
+---
+
 ## 🏁 How to Run
 
 ### 1. Start the Incentives API
