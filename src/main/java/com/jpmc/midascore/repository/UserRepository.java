@@ -1,0 +1,10 @@
+package com.jpmc.midascore.repository;
+
+import com.jpmc.midascore.entity.UserRecord;
+import org.springframework.data.repository.CrudRepository;
+import java.util.Optional;
+
+public interface UserRepository extends CrudRepository<UserRecord, Long> {
+    UserRecord findById(long id);  // Keep this custom method
+    Optional<UserRecord> findByName(String name);
+}
