@@ -6,6 +6,33 @@ Built a Spring Boot microservice that processes high-volume financial transactio
 
 The system follows a reactive, message-driven architecture to ensure scalability and decoupling:
 
+```mermaid
+graph TD
+    subgraph "External Systems"
+        K[Kafka: trader-updates]
+        IAPI[Incentives API]
+    end
+
+    subgraph "Midas Core Microservice"
+        TP[TransactionProcessor]
+        VAL{Validation Logic}
+        DC[DatabaseConduit]
+        REPO[Repositories]
+    end
+
+    subgraph "Persistence"
+        DB[(H2 Database)]
+    end
+
+    K --> TP
+    TP --> VAL
+    VAL --> IAPI
+    IAPI --> TP
+    TP --> DC
+    DC --> REPO
+    REPO --> DB
+```
+
 `Kafka` ➡️ `Consumer (TransactionProcessor)` ➡️ `Service/Logic` ➡️ `Database (H2)` ➡️ `External Incentives API`
 
 1.  **Kafka Ingestion**: High-frequency transaction messages are consumed from a Kafka topic.
